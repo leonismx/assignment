@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Double } from 'react-native/Libraries/Types/CodegenTypes';
+import { CARD_PAIRS_VALUE } from '../App';
 
 export interface FlipCard {
   index: number;
@@ -10,7 +11,6 @@ export interface FlipCard {
 export interface Card {
   value: number;
   opened: boolean;
-  matched: boolean;
   reset: boolean;
   id: Double;
   restart: boolean;
@@ -21,11 +21,15 @@ const initialState: {
   flippedCardsIndex: FlipCard[];
   disableCards: boolean;
   stepsTaken: number;
+  pairedCards: number;
+  showAlert: boolean;
 } = {
   cards: [],
   flippedCardsIndex: [],
   disableCards: false,
   stepsTaken: 0,
+  pairedCards: 0,
+  showAlert: false,
 };
 
 export const gameSlice = createSlice({
@@ -52,9 +56,8 @@ export const gameSlice = createSlice({
 
       if (state.flippedCardsIndex.length === 2) {
         if (state.flippedCardsIndex[0].value === state.flippedCardsIndex[1].value) {
-          state.cards[firstCardIndex].matched = true;
-          state.cards[secondCardIndex].matched = true;
           state.flippedCardsIndex = [];
+          state.pairedCards++;
         } else {
           state.cards[firstCardIndex].reset = true;
           state.cards[firstCardIndex].opened = false;
@@ -62,6 +65,10 @@ export const gameSlice = createSlice({
           state.cards[secondCardIndex].reset = true;
           state.cards[secondCardIndex].opened = false;
         }
+      }
+
+      if (state.pairedCards === CARD_PAIRS_VALUE) {
+        state.showAlert = true;
       }
     },
     disableAllCards: (state) => {
@@ -94,8 +101,9 @@ export const {
 export const selectCards = (state: { gameboard: { cards: Card[] } }) => state.gameboard.cards;
 export const selectStepsTaken = (state: { gameboard: { stepsTaken: number } }) =>
   state.gameboard.stepsTaken;
-
 export const selectIfCardsShouldBeDisabled = (state: { gameboard: { disableCards: boolean } }) =>
   state.gameboard.disableCards;
+export const selectIfGameEnded = (state: { gameboard: { showAlert: boolean } }) =>
+  state.gameboard.showAlert;
 
 export default gameSlice.reducer;

@@ -3,9 +3,10 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import GameBoard from './GameBoard/Gameboard';
 import Header from './Header';
+import Popup from './Popup';
 import { animateAllCardsBack, clearAllStatesAndRestart, setCards } from './slices/gameSlice';
 
-export const CARD_PAIRS_VALUE = 6;
+export const CARD_PAIRS_VALUE = 3;
 
 const App: () => JSX.Element = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,6 @@ const App: () => JSX.Element = () => {
       .map((cardValue) => ({
         value: cardValue,
         id: Math.random(),
-        matched: false,
         opened: false,
         reset: false,
         restart: false,
@@ -45,6 +45,7 @@ const App: () => JSX.Element = () => {
     <SafeAreaView style={styles.overviewContainer}>
       <Header restartBtnTapped={restartApp}></Header>
       <GameBoard />
+      <Popup callBack={restartApp} />
     </SafeAreaView>
   );
 };

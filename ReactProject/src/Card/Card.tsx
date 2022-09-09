@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, memo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { CARD_PAIRS_VALUE } from '../App';
 import { Card } from '../slices/gameSlice';
 import { getHeight, getWidth } from '../Utils/dimension';
 
 export interface CardProps {
   card: Card;
-  reset: boolean;
-  restart: boolean;
   cardIndex: number;
   disable: boolean;
-  opened: boolean;
   disableAllCards: () => void;
   cardTapped: (cardIndex: number) => void;
   clearFlippedCards: (cardIndex: number) => void;
@@ -23,7 +21,7 @@ const CardComponent = (props: CardProps) => {
   });
 
   useEffect(() => {
-    if (props.card.opened === false && props.reset) {
+    if (props.card.opened === false && props.card.reset) {
       props.disableAllCards();
 
       flipRotation = 180;
@@ -36,14 +34,14 @@ const CardComponent = (props: CardProps) => {
         props.clearFlippedCards(props.cardIndex);
       }, 1100);
     }
-  }, [props.card.opened, props.reset]);
+  }, [props.card.opened, props.card.reset]);
 
   useEffect(() => {
-    if (props.restart) {
+    if (props.card.restart) {
       flipRotation = 180;
       flipCard();
     }
-  }, [props.restart]);
+  }, [props.card.restart]);
 
   const flipCard = () => {
     if (flipRotation >= 90) {
@@ -87,13 +85,13 @@ const CardComponent = (props: CardProps) => {
 
   return (
     <TouchableOpacity
-      disabled={props.opened || props.card.matched || props.disable}
+      disabled={props.card.opened || props.disable}
       onPress={() => {
         props.disableAllCards();
         flipCard();
         props.cardTapped(props.cardIndex);
       }}
-      style={[styles.cardContainer]}
+      style={[styles.cardContainer, { width: getWidth(CARD_PAIRS_VALUE), height: getHeight() }]}
     >
       <Animated.View style={[styles.card, flipToBackStyle]}>
         <Text style={{ fontSize: 20 }}>{props.card.value}</Text>
@@ -107,8 +105,6 @@ const CardComponent = (props: CardProps) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: getWidth(),
-    height: getHeight(),
     margin: 10,
     borderRadius: 8,
   },

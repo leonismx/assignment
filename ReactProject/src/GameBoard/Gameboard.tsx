@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { CARD_PAIRS_VALUE } from '../App';
@@ -39,10 +39,7 @@ const RenderItem = (props: RenderProps) => {
     <CardComponent
       cardIndex={index}
       card={item}
-      opened={item.opened}
-      restart={item.restart}
       cardTapped={triggerCardTapped}
-      reset={item.reset}
       clearFlippedCards={triggerClearFlippedCard}
       disable={useSelector(selectIfCardsShouldBeDisabled)}
       disableAllCards={disable}
@@ -52,8 +49,7 @@ const RenderItem = (props: RenderProps) => {
 
 const GameBoard = () => {
   const cards = useSelector(selectCards);
-  const col = getColumns();
-
+  const col = getColumns(CARD_PAIRS_VALUE);
   return (
     <FlatList
       removeClippedSubviews={true}
