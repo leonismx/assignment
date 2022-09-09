@@ -19,6 +19,7 @@ class ViewController: UIViewController{
         layout.minimumLineSpacing = 10
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = UIColor.white
         collectionView.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(CardCell.self, forCellWithReuseIdentifier: "CardCell")
@@ -52,7 +53,6 @@ class ViewController: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         self.view.addSubview(gameboardCollectionView)
         self.view.addSubview(headerView)
         headerView.addSubview(btn)

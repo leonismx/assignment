@@ -31,6 +31,7 @@ class CardCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "HelveticaNeue-Medium", size: 20)
+        label.textColor = UIColor.darkGray
 
         return label
     }()
