@@ -21,12 +21,12 @@ describe('get number of columns to display', () => {
 
 describe('get width of card from device screen', () => {
   it('should return a number of 3 when %3 === 0', () => {
-    expectedValue = Math.floor((screen.width - CARD_MARGIN * 6 - GAMEBOARD_MARGIN * 2) / 3);
+    const expectedValue = Math.floor((screen.width - CARD_MARGIN * 6 - GAMEBOARD_MARGIN * 2) / 3);
     expect(getWidth(3)).toBe(expectedValue);
   });
 
   it('should return a number of 3 when %3 !== 0', () => {
-    expectedValue = Math.floor((screen.width - CARD_MARGIN * 4 - GAMEBOARD_MARGIN * 2) / 2);
+    const expectedValue = Math.floor((screen.width - CARD_MARGIN * 4 - GAMEBOARD_MARGIN * 2) / 2);
     expect(getWidth(4)).toBe(expectedValue);
   });
 });

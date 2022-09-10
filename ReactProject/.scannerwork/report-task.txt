@@ -1,0 +1,6 @@
+projectKey=react
+serverUrl=http://localhost:9000
+serverVersion=9.6.1.59531
+dashboardUrl=http://localhost:9000/dashboard?id=react
+ceTaskId=AYMmft9N-7jHhdore7R2
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYMmft9N-7jHhdore7R2

@@ -34,14 +34,14 @@ const CardComponent = (props: CardProps) => {
         props.clearFlippedCards(props.cardIndex);
       }, 1100);
     }
-  }, [props.card.opened, props.card.reset]);
+  }, [props.card?.opened, props.card?.reset]);
 
   useEffect(() => {
-    if (props.card.restart) {
+    if (props.card?.restart) {
       flipRotation = 180;
       flipCard();
     }
-  }, [props.card.restart]);
+  }, [props.card?.restart]);
 
   const flipCard = () => {
     if (flipRotation >= 90) {
@@ -85,7 +85,7 @@ const CardComponent = (props: CardProps) => {
 
   return (
     <TouchableOpacity
-      disabled={props.card.opened || props.disable}
+      disabled={props.card?.opened || props.disable}
       onPress={() => {
         props.disableAllCards();
         flipCard();
@@ -94,7 +94,7 @@ const CardComponent = (props: CardProps) => {
       style={[styles.cardContainer, { width: getWidth(CARD_PAIRS_VALUE), height: getHeight() }]}
     >
       <Animated.View style={[styles.card, flipToBackStyle]}>
-        <Text style={{ fontSize: 20 }}>{props.card.value}</Text>
+        <Text style={{ fontSize: 20 }}>{props.card?.value}</Text>
       </Animated.View>
       <Animated.View style={[styles.card, styles.cardBackFace, flipToFrontStyle]}>
         <Text style={{ fontSize: 20 }}>?</Text>
