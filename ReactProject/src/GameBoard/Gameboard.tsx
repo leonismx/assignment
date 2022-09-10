@@ -28,6 +28,7 @@ const RenderItem = (props: RenderProps) => {
   };
 
   const triggerClearFlippedCard = (index: number) => {
+    // flip back unmatched card, this will toggle for each card when 2nd parameter(props.card.reset) in useeffect changes
     dispatch(clearCards(index));
     dispatch(enableAllCards());
   };

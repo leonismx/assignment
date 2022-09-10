@@ -7,13 +7,12 @@ interface HeaderProps {
   restartBtnTapped: () => void;
 }
 
-const StepsComponent = () => {
+export const StepsComponent = () => {
   const steps = useSelector(selectStepsTaken);
 
   return (
-    <Text style={{ fontSize: 20 }}>
-      STEPS:
-      <Text style={{ color: 'skyblue', fontSize: 25, fontWeight: 'bold' }}> {steps}</Text>{' '}
+    <Text style={styles.stepsTextStyle}>
+      STEPS:<Text style={styles.stepsNumberStyle}> {steps}</Text>
     </Text>
   );
 };
@@ -28,6 +27,16 @@ const Header = (props: HeaderProps) => {
 };
 
 const styles = StyleSheet.create({
+  stepsTextStyle: {
+    fontSize: 20,
+    textAlignVertical: 'center',
+  },
+  stepsNumberStyle: {
+    color: 'skyblue',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+  },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

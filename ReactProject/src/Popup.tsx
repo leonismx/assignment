@@ -23,7 +23,10 @@ const Popup = (props: PopupProps) => {
 
   useEffect(() => {
     if (gameCompleted) {
-      showAlert();
+      //set a delay here for better ux
+      setTimeout(() => {
+        showAlert();
+      }, 600);
     }
   }, [gameCompleted]);
 

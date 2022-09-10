@@ -8,7 +8,7 @@ import { animateAllCardsBack, clearAllStatesAndRestart, setCards } from './slice
 
 export const CARD_PAIRS_VALUE = 3;
 
-const App: () => JSX.Element = () => {
+const App = () => {
   const dispatch = useDispatch();
   const [restart, setRestart] = useState(false);
 

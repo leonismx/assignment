@@ -44,15 +44,15 @@ export const gameSlice = createSlice({
       state.cards = action.payload;
     },
     openCard: (state, action: PayloadAction<number>) => {
-      state.stepsTaken += +1;
+      state.stepsTaken += 1;
       state.flippedCardsIndex.push({
         index: action.payload,
         value: state.cards[action.payload].value,
       });
       state.cards[action.payload].opened = true;
 
-      const firstCardIndex = state.flippedCardsIndex[0] && state.flippedCardsIndex[0].index;
-      const secondCardIndex = state.flippedCardsIndex[1] && state.flippedCardsIndex[1].index;
+      const firstCardIndex = state.flippedCardsIndex[0]?.index;
+      const secondCardIndex = state.flippedCardsIndex[1]?.index;
 
       if (state.flippedCardsIndex.length === 2) {
         if (state.flippedCardsIndex[0].value === state.flippedCardsIndex[1].value) {
