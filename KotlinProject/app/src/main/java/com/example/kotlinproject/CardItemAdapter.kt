@@ -1,19 +1,25 @@
 package com.example.kotlinproject
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinproject.models.Card
 import kotlinx.android.synthetic.main.grid_view.view.*
 
-class CardItemAdapter(private val cards: List<Card>): RecyclerView.Adapter<CardItemAdapter.CardViewHolder>() {
+class CardItemAdapter(private val cards: List<Card>, private val cardClickListener: CardClickListener): RecyclerView.Adapter<CardItemAdapter.CardViewHolder>() {
 
-    lateinit var onItemClick: (Card, View, Int) -> Unit
+    interface  CardClickListener {
+        fun onCardClicked(position: Int)
+    }
 
     inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val backCardTextView: TextView = itemView.card_back
-
+        fun bind(position: Int){
+            itemView.setOnClickListener{
+                cardClickListener.onCardClicked(position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder{
@@ -24,14 +30,11 @@ class CardItemAdapter(private val cards: List<Card>): RecyclerView.Adapter<CardI
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = cards[position]
         holder.backCardTextView.text = card.value.toString()
-        holder.itemView.setOnClickListener {
-            onItemClick.invoke(card, holder.itemView, position)
-        }
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int {
         return cards.size
     }
-
 }
 

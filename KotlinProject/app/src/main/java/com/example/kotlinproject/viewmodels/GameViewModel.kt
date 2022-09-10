@@ -1,34 +1,29 @@
 package com.example.kotlinproject.viewmodels
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.kotlinproject.Card
+import com.example.kotlinproject.models.Card
 import com.example.kotlinproject.utils.Utils
-import java.util.*
-import kotlin.concurrent.schedule
 
 interface Delegation {
-    fun showCards(card:Card, position: Int)
-    fun hideCards(cards:MutableList<Card>, positions: MutableList<Int>)
-    fun gameEnded(ended:Boolean,  cards: List<Card>)
+    fun showCards(card: Card, position: Int)
+    fun hideCards(cards: MutableList<Card>, positions: MutableList<Int>)
+    fun gameEnded(ended: Boolean, cards: List<Card>)
 }
 
-class GameViewModel(): ViewModel()  {
+class GameViewModel() : ViewModel() {
+
     private val flippedCards: MutableList<Card> = mutableListOf()
     private val pairedCards: MutableList<Card> = mutableListOf()
     private val positionOfCard: MutableList<Int> = mutableListOf()
-    private var finalCards: List<Card> = listOf()
-
+    var finalCards: MutableList<Card> = mutableListOf()
     var delegation: Delegation? = null
-
     var gameSteps: Int = 0
     val gameStepsLiveData: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>(0)
     }
 
-    fun incrementGameStep(){
-
+    fun incrementGameStep() {
         gameSteps += 1
         gameStepsLiveData.setValue(gameSteps)
     }
@@ -43,47 +38,41 @@ class GameViewModel(): ViewModel()  {
         cards.map { card ->
             duplicatedCards.add(card.copy())
         }
-        finalCards = cards.plus(duplicatedCards).shuffled()
+        finalCards = cards.plus(duplicatedCards).shuffled() as MutableList<Card>
         return finalCards
     }
 
-    fun didSelectCard(card:Card, position: Int){
-    //delegate back to animate card
-//        delegation?.onScannedCreditCard(mutableListOf(card), itemView)
+    fun didSelectCard( position: Int) {
 
-        delegation?.showCards(card, position)
+        delegation?.showCards(finalCards[position], position)
 
-        flippedCards.add(card)
+        flippedCards.add(finalCards[position])
         positionOfCard.add(position)
-        if(flippedCards.size == 2){
+        if (flippedCards.size == 2) {
 
-            if(flippedCards.first().value != flippedCards.last().value){
-                //delegate back to main activity and hide cards
-        println(flippedCards)
-                println(positionOfCard)
+            if (flippedCards.first().value != flippedCards.last().value) {
+                delegation?.hideCards(flippedCards, positionOfCard)
 
-                    delegation?.hideCards(flippedCards,positionOfCard)
-
-
-
-            }else{
-                pairedCards.add(card)
+            } else {
+                pairedCards.add(finalCards[position])
             }
             flippedCards.clear()
             positionOfCard.clear()
         }
 
-        if(pairedCards.size == 3){
-        println(finalCards)
-            delegation?.gameEnded(true,finalCards)
+        if (pairedCards.size == 3) {
+            delegation?.gameEnded(true, finalCards)
+            gameSteps = 0
             gameStepsLiveData.setValue(0)
         }
-
     }
 
-    fun startGame(){
-        generateRandomCards()
-
+    fun restartGame() {
+        flippedCards.clear()
+        pairedCards.clear()
+        positionOfCard.clear()
+        finalCards.clear()
+        gameSteps = 0
+        gameStepsLiveData.setValue(0)
     }
-
 }

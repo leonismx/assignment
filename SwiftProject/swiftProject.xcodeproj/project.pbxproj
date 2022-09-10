@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35428CD328CD0B0C00BBA1E0 /* sonar-project.properties in Resources */ = {isa = PBXBuildFile; fileRef = 35428CD228CD0B0C00BBA1E0 /* sonar-project.properties */; };
 		3551EFD628C918A700EE8574 /* GameBoardGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3551EFD528C918A700EE8574 /* GameBoardGridView.swift */; };
 		3551EFD828C99B5100EE8574 /* GameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3551EFD728C99B5100EE8574 /* GameBoardViewModel.swift */; };
 		3551EFDA28C9A73000EE8574 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3551EFD928C9A73000EE8574 /* Card.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		35428CD228CD0B0C00BBA1E0 /* sonar-project.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "sonar-project.properties"; sourceTree = "<group>"; };
 		3551EFD528C918A700EE8574 /* GameBoardGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardGridView.swift; sourceTree = "<group>"; };
 		3551EFD728C99B5100EE8574 /* GameBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardViewModel.swift; sourceTree = "<group>"; };
 		3551EFD928C9A73000EE8574 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		356FA42C28C8EEA6009CE3CE = {
 			isa = PBXGroup;
 			children = (
+				35428CD228CD0B0C00BBA1E0 /* sonar-project.properties */,
 				356FA43728C8EEA6009CE3CE /* swiftProject */,
 				356FA44E28C8EEA8009CE3CE /* swiftProjectTests */,
 				356FA45828C8EEA8009CE3CE /* swiftProjectUITests */,
@@ -283,6 +286,7 @@
 			files = (
 				356FA44528C8EEA8009CE3CE /* LaunchScreen.storyboard in Resources */,
 				356FA44228C8EEA8009CE3CE /* Assets.xcassets in Resources */,
+				35428CD328CD0B0C00BBA1E0 /* sonar-project.properties in Resources */,
 				356FA44028C8EEA6009CE3CE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
