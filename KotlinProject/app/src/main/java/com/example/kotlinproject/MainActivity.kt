@@ -93,8 +93,8 @@ class MainActivity : AppCompatActivity(), Delegation {
         back.cameraDistance = 10000 * scale
 
         if (!card.shown) {
-            frontAnim.setTarget(front);
-            backAnim.setTarget(back);
+            frontAnim.setTarget(front)
+            backAnim.setTarget(back)
             frontAnim.start()
             backAnim.start()
             card.shown = true
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity(), Delegation {
     }
 
     override fun showCards(card: Card, position: Int) {
-        val itemView = cardItems.findViewHolderForAdapterPosition(position)?.itemView;
+        val itemView = cardItems.findViewHolderForAdapterPosition(position)?.itemView
         if (itemView != null) {
             runOnUiThread {
                 animateCard(itemView, card)
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), Delegation {
         val freezePosition = positions.toList()
         Timer().schedule(1000) {
             freezePosition.mapIndexed { index, position ->
-                val itemView = cardItems.findViewHolderForAdapterPosition(position)?.itemView;
+                val itemView = cardItems.findViewHolderForAdapterPosition(position)?.itemView
                 if (itemView != null) {
                     runOnUiThread {
                         animateCard(itemView, freezeCards[index])
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity(), Delegation {
             }
             Timer().schedule(1000) {
                 cards.mapIndexed { index, card ->
-                    val itemView = cardItems.findViewHolderForAdapterPosition(index)?.itemView;
+                    val itemView = cardItems.findViewHolderForAdapterPosition(index)?.itemView
                     if (itemView != null) {
                         runOnUiThread {
                             animateCard(itemView, card)
