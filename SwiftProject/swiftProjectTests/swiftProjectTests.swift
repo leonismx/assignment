@@ -51,12 +51,4 @@ class swiftProjectTests: XCTestCase {
         XCTAssertEqual(actualResult, expectedResult)
     }
     
-//    func testShuffleFails() throws {
-//        let expectedResult: [Int] = []
-//        let numbers : [Int] = [1,2,3,4,5]
-//        let shuffledArray = Int.generateRandomUniqueNumbers(min: 1, max: 100, count: 6)
-//        let actualResult = (Set(numbers).count == uniqueGeneratedNumbers.count)
-//        XCTAssertEqual(actualResult, expectedResult)
-//    }
-
 }

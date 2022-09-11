@@ -6,8 +6,9 @@ import Header from '../src/Header';
 import store from '../src/store';
 import { Provider } from 'react-redux';
 import Popup from '../src/Popup';
-import App from '../src/App';
+import App, { randomCards } from '../src/App';
 import renderer from 'react-test-renderer';
+import CardComponent from '../src/Card/Card';
 
 test('renders correctly App component', () => {
   const tree = renderer
@@ -18,6 +19,16 @@ test('renders correctly App component', () => {
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
+  // pop up is not rendering any component as its just an alert
+  expect(tree.children.length).toBe(2);
+});
+
+describe('random numbers from number generator', () => {
+  const uniqueCards = new Set(randomCards(6));
+  expectedValue = uniqueCards.size === 6 * 2;
+  it('should return random unique numbers', () => {
+    expect(expectedValue).toBe(true);
+  });
 });
 
 test('renders correctly Header component', () => {
@@ -29,6 +40,7 @@ test('renders correctly Header component', () => {
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
+  expect(tree.children.length).toBe(2);
 });
 
 test('renders correctly Pop up component', () => {
@@ -40,4 +52,5 @@ test('renders correctly Pop up component', () => {
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
+  expect(tree).toBe(null);
 });

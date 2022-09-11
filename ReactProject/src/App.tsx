@@ -4,32 +4,34 @@ import { useDispatch } from 'react-redux';
 import GameBoard from './GameBoard/Gameboard';
 import Header from './Header';
 import Popup from './Popup';
-import { animateAllCardsBack, clearAllStatesAndRestart, setCards } from './slices/gameSlice';
+import { animateAllCardsBack, Card, clearAllStatesAndRestart, setCards } from './slices/gameSlice';
 
-export const CARD_PAIRS_VALUE = 3;
+export const CARD_PAIRS_VALUE = 4;
+
+export const randomCards = (pairsOfCard: number): Card[] => {
+  let arrOfNumbers = [];
+  while (arrOfNumbers.length < pairsOfCard) {
+    let r = Math.floor(Math.random() * 100) + 1;
+    if (arrOfNumbers.indexOf(r) === -1) arrOfNumbers.push(r);
+  }
+
+  return [...arrOfNumbers, ...arrOfNumbers]
+    .sort(() => Math.random() - 0.5)
+    .map((cardValue) => ({
+      value: cardValue,
+      id: Math.random(),
+      opened: false,
+      reset: false,
+      restart: false,
+    }));
+};
 
 const App = () => {
   const dispatch = useDispatch();
   const [restart, setRestart] = useState(false);
 
   useEffect(() => {
-    let arr = [];
-    while (arr.length < CARD_PAIRS_VALUE) {
-      let r = Math.floor(Math.random() * 100) + 1;
-      if (arr.indexOf(r) === -1) arr.push(r);
-    }
-
-    const shuffleCards = [...arr, ...arr]
-      .sort(() => Math.random() - 0.5)
-      .map((cardValue) => ({
-        value: cardValue,
-        id: Math.random(),
-        opened: false,
-        reset: false,
-        restart: false,
-      }));
-
-    dispatch(setCards(shuffleCards));
+    dispatch(setCards(randomCards(CARD_PAIRS_VALUE)));
   }, [restart]);
 
   const restartApp = () => {
@@ -43,7 +45,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.overviewContainer}>
-      <Header restartBtnTapped={restartApp}></Header>
+      <Header restartBtnTapped={restartApp} />
       <GameBoard />
       <Popup callBack={restartApp} />
     </SafeAreaView>
